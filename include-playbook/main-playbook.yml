@@ -1,0 +1,8 @@
+---
+- name: Install Nginx and Git on Web Servers
+  hosts: web
+  become: yes
+
+  tasks:
+    - include_tasks: install-nginx.yml
+    - include_tasks: install-git.yml

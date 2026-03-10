@@ -1,0 +1,13 @@
+---
+- name: check nginx service
+  hosts: web
+  become: yes
+  tasks:
+    - name: check nginx service
+      command: systemctl status nginx
+      register: nginx_status
+    - name: resatrt nginx service if not running
+      service:
+        name: nginx
+        state: restarted
+      when: nginx_status.rc != 0

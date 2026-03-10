@@ -1,0 +1,37 @@
+---
+- name: Block Example
+  hosts: web
+  become: yes
+
+  tasks:
+    - block:
+        - name: Install nginx on Web Servers
+          yum:
+            name: nginx
+            state: present
+        - name: Start and Enable nginx Service
+          service:
+            name: nginx
+            state: started
+            enabled: yes
+        - name: Install git on Web Servers
+          yum:
+            name: git
+            state: present
+
+    - block:
+        - name: Install nginx on Web Servers
+          apt:
+            name: nginx
+            state: present
+        - name: Start and Enable nginx Service
+          service:
+            name: nginx
+            state: started
+            enabled: yes
+        - name: Install git on Web Servers
+          apt:
+            name: git
+            state: present
+
+      when: ansible_facts['distribution'] == "Ubuntu"

@@ -1,0 +1,20 @@
+---
+- name: rescue and always example
+  hosts: web
+  become: yes
+
+  tasks:
+    - block:
+        - name: try to copy file that does not exist
+          copy:
+            src: /etc/pass # this file does not exist
+            dest: /tmp/app
+      rescue:
+        - name: create a file with the correct name
+          file:
+            path: /tmp/app
+            state: touch
+      always:
+        - name: display a message
+          debug:
+            msg: "This task will always run regardless of the block result"

@@ -1,0 +1,28 @@
+---
+- name: Install Apache on Web Servers
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Install Apache httpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start and Enable Apache Service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+    - name: Create index.html with Hostname
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+        mode: "0644"
+      notify: Restart Apache web service
+
+  handlers:
+    - name: Restart Apache web service
+      service:
+        name: httpd
+        state: restarted

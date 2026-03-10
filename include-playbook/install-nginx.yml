@@ -1,0 +1,16 @@
+---
+- name: Install Nginx on Web Servers
+  yum:
+    name: nginx
+    state: present
+- name: Start and Enable nginx Service
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+- name: Get nginx version
+  command: nginx -v
+  register: nginx_version
+- name: Show nginx version
+  ansible.builtin.debug:
+    var: nginx_version.stdout

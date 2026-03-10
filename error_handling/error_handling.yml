@@ -1,0 +1,11 @@
+---
+- name: Install anything on Web Servers
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Install hhhhhh on Web Servers
+      yum:
+        name: hhhhhh
+        state: present
+      ignore_errors: yes

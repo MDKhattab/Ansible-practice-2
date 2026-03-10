@@ -1,0 +1,12 @@
+---
+- name: Install Git on Web Servers
+  yum:
+    name: git
+    state: present
+- name: Verify git installation
+  command: git --version
+  register: git_version
+
+- name: Show git version
+  ansible.builtin.debug:
+    var: git_version.stdout

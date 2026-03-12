@@ -18,7 +18,7 @@
           yum:
             name: git
             state: present
-
+      when: ansible_facts['distribution'] == "CentOS"
     - block:
         - name: Install nginx on Web Servers
           apt:
